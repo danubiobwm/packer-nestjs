@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  packer:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      # - API_KEY=sua_chave_aqui   # descomente para ativar autenticação

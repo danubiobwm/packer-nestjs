@@ -1,0 +1,56 @@
+curl -X POST http://localhost:3000/pack \
+  -H "Content-Type: application/json" \
+  --data @test/fixtures/entrada.json | jq
+#
+# Exemplo de entrada (test/fixtures/entrada.json):
+# {
+#   "pedidos": [
+#     {
+#       "pedido_id": 101,
+#       "produtos": [
+#         {
+#           "produto_id": "jogo-ps5-001",
+#           "dimensoes": {
+#             "altura": 3,
+#             "largura": 15,
+#             "comprimento": 20
+#           }
+#         },
+#         {
+#           "produto_id": "console-ps5",
+#           "dimensoes": {
+#             "altura": 40,
+#             "largura": 20,
+#             "comprimento": 30
+#           }
+#         }
+#       ]
+#     }
+#   ]
+# }
+
+# {
+#   "pedidos": [
+#     {
+#       "pedido_id": 301,
+#       "produtos": [
+#         {
+#           "produto_id": "controle-xbox",
+#           "dimensoes": {
+#             "altura": 8,
+#             "largura": 15,
+#             "comprimento": 20
+#           }
+#         },
+#         {
+#           "produto_id": "jogo-xbox",
+#           "dimensoes": {
+#             "altura": 3,
+#             "largura": 15,
+#             "comprimento": 20
+#           }
+#         }
+#       ]
+#     }
+#   ]
+# }

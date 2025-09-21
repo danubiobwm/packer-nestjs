@@ -1,7 +1,7 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { PackRequestDto } from './dto/pack-request.dto';
 import { PackResponseDto } from './dto/pack-response.dto';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
 import { PackerService } from './packer.service';
 
 @ApiTags('packer')
@@ -11,6 +11,7 @@ export class PackerController {
 
   @Post('pack')
   @ApiOperation({ summary: 'Empacota pedidos' })
+  @ApiBody({ type: PackRequestDto })
   @ApiResponse({ status: 200, type: PackResponseDto })
   pack(@Body() body: PackRequestDto): PackResponseDto {
     return this.packerService.packOrders(body);

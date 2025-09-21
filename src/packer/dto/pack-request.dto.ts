@@ -1,21 +1,27 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsNumber, ValidateNested, IsString } from 'class-validator';
+import { IsArray, IsNumber, IsString, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
-class DimensoesDto {
+export class DimensoesDto {
   @ApiProperty()
+  @IsNumber()
   altura: number;
+
   @ApiProperty()
+  @IsNumber()
   largura: number;
+
   @ApiProperty()
+  @IsNumber()
   comprimento: number;
 }
 
-class ProdutoDto {
+export class ProdutoDto {
   @ApiProperty()
+  @IsString()
   produto_id: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: DimensoesDto })
   @ValidateNested()
   @Type(() => DimensoesDto)
   dimensoes: DimensoesDto;
@@ -23,6 +29,7 @@ class ProdutoDto {
 
 export class PedidoDto {
   @ApiProperty()
+  @IsNumber()
   pedido_id: number;
 
   @ApiProperty({ type: [ProdutoDto] })
