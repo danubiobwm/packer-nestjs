@@ -1,15 +1,17 @@
-FROM node:18-alpine AS builder
+# builder
+FROM node:20-alpine AS builder
 WORKDIR /app
-COPY package*.json ./
-RUN npm ci
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
 COPY . .
-RUN npm run build
+RUN yarn build
 
-FROM node:18-alpine
+# runner
+FROM node:20-alpine
 WORKDIR /app
 ENV NODE_ENV=production
-COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/package.json yarn.lock ./
 COPY --from=builder /app/dist ./dist
-RUN npm ci --only=production
+RUN yarn install --production --frozen-lockfile
 EXPOSE 3000
 CMD ["node", "dist/main.js"]
