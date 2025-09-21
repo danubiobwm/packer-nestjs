@@ -1,20 +1,20 @@
 {
   "name": "packer-nestjs",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "API para empacotar pedidos - NestJS example",
+  "author": "J Danubio",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "nest build",
+    "build": "tsc -p tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "start:dev": "nest start --watch",
+    "start:dev": "ts-node-dev --respawn --transpile-only src/main.ts",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "jest --runInBand",
+    "test:watch": "jest --watchAll",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json"
@@ -24,7 +24,12 @@
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "@nestjs/swagger": "^6.0.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "rimraf": "^5.0.0",
+    "swagger-ui-express": "^4.6.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
