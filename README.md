@@ -1,98 +1,207 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+## Packer API – NestJS
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API para auxiliar Seu Manoel a embalar pedidos de produtos em caixas de papelão.
+Dado um conjunto de pedidos com produtos e dimensões, a API retorna quais caixas devem ser usadas e quais produtos vão em cada caixa.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Tecnologias
 
-## Description
+NestJS
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Swagger
+ (documentação da API)
 
-## Project setup
+Jest
+ (testes unitários)
 
-```bash
-$ yarn install
+Docker & Docker Compose
+
+## Estrutura de pastas
+```
+packer-nestjs/
+├─ src/
+│  ├─ main.ts
+│  ├─ app.module.ts
+│  └─ packer/
+│     ├─ packer.module.ts
+│     ├─ packer.controller.ts
+│     ├─ packer.service.ts
+│     └─ dto/
+│        ├─ pack-request.dto.ts
+│        └─ pack-response.dto.ts
+├─ test/fixtures/entrada.json
+├─ test/fixtures/saida.json
+├─ test/packer.service.spec.ts
+├─ package.json
+├─ Dockerfile
+├─ docker-compose.yml
+└─ README.md
+
 ```
 
-## Compile and run the project
+## Instalação e execução
+Rodar localmente
 
-```bash
-# development
-$ yarn run start
+Clone o repositório
 
-# watch mode
-$ yarn run start:dev
+```
+git clone https://github.com/danubiobwm/packer-nestjs.git
+cd packer-nestjs
 
-# production mode
-$ yarn run start:prod
+```
+## Instale as dependências
+
+```
+yarn install
+
+```
+## Rode em modo desenvolvimento
+```
+yarn start:dev
+
 ```
 
-## Run tests
+## Acesse no navegador:
+```
+API: http://localhost:3000
 
-```bash
-# unit tests
-$ yarn run test
+Swagger Docs: http://localhost:3000/docs
 
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
 ```
 
-## Deployment
+## Rodar com Docker
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+```
+docker compose up --build
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+```
+API sobe em: http://localhost:3000
 
-```bash
-$ yarn install -g @nestjs/mau
-$ mau deploy
+## Autenticação (opcional)
+Se quiser proteger os endpoints, defina uma API key no ambiente:
+```
+export API_KEY=meu_token_secreto
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+E envie nos requests o header:
+```
+x-api-key: meu_token_secreto
+```
 
-## Resources
+## Endpoint
 
-Check out a few resources that may come in handy when working with NestJS:
+POST /pack
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Recebe pedidos e retorna a forma de embalar.
 
-## Support
+Entrada (JSON)
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```
+{
+  "pedidos": [
+    {
+      "pedido_id": 1,
+      "produtos": [
+        {
+          "produto_id": "PS5",
+          "dimensoes": { "altura": 40, "largura": 10, "comprimento": 25 }
+        },
+        {
+          "produto_id": "Volante",
+          "dimensoes": { "altura": 40, "largura": 30, "comprimento": 30 }
+        }
+      ]
+    }
+  ]
+}
+```
 
-## Stay in touch
+Saída (JSON)
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```
+{
+  "pedidos": [
+    {
+      "pedido_id": 1,
+      "caixas": [
+        {
+          "caixa_id": "Caixa 2",
+          "produtos": ["PS5", "Volante"]
+        }
+      ]
+    }
+  ]
+}
+```
 
-## License
+## Caixas disponíveis
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Caixa 1: 30 × 40 × 80 cm
+
+Caixa 2: 50 × 50 × 40 cm
+
+Caixa 3: 50 × 80 × 60 cm
+
+## Testes
+
+Rodar testes unitários:
+
+```
+yarn test
+
+```
+
+## Teste principal:
+
+Usa test/fixtures/entrada.json como entrada
+
+Compara o resultado com test/fixtures/saida.json
+
+
+## Exemplos de requests
+Pedido com múltiplos produtos pequenos
+```
+{
+  "pedidos": [
+    {
+      "pedido_id": 8,
+      "produtos": [
+        {
+          "produto_id": "Controle Xbox",
+          "dimensoes": { "altura": 10, "largura": 15, "comprimento": 10 }
+        },
+        {
+          "produto_id": "Carregador",
+          "dimensoes": { "altura": 3, "largura": 8, "comprimento": 8 }
+        }
+      ]
+    }
+  ]
+}
+
+```
+
+## Resposta esperada
+
+```
+{
+  "pedidos": [
+    {
+      "pedido_id": 8,
+      "caixas": [
+        {
+          "caixa_id": "Caixa 1",
+          "produtos": ["Controle Xbox", "Carregador"]
+        }
+      ]
+    }
+  ]
+}
+```
+
+## Documentação Swagger
+
+Disponível em:
+
+ http://localhost:3000/docs
+
+
