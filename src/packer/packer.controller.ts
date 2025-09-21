@@ -5,7 +5,7 @@ import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
 import { PackerService } from './packer.service';
 
 @ApiTags('packer')
-@Controller()
+@Controller('packer')
 export class PackerController {
   constructor(private readonly packerService: PackerService) {}
 
