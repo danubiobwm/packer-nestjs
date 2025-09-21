@@ -1,17 +1,30 @@
-# builder
+# Build stage
 FROM node:20-alpine AS builder
 WORKDIR /app
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+
+# Copy package files
+COPY package.json ./
+COPY yarn.lock* ./
+
+# Install dependencies (will use yarn.lock if exists)
+RUN if [ -f yarn.lock ]; then yarn install --frozen-lockfile; \
+    else yarn install; fi
+
 COPY . .
 RUN yarn build
 
-# runner
-FROM node:20-alpine
+# Production stage
+FROM node:20-alpine AS production
 WORKDIR /app
-ENV NODE_ENV=production
-COPY --from=builder /app/package.json yarn.lock ./
+
+# Copy package files and build
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/yarn.lock* ./
 COPY --from=builder /app/dist ./dist
-RUN yarn install --production --frozen-lockfile
+
+# Install only production dependencies
+RUN if [ -f yarn.lock ]; then yarn install --frozen-lockfile --production; \
+    else yarn install --production; fi
+
 EXPOSE 3000
-CMD ["node", "dist/main.js"]
+CMD ["node", "dist/main"]
